@@ -10,8 +10,11 @@ public class Facade {
     private Person thePerson;
 
 
-    public boolean login() {
-        return true;
+
+
+    public void facadehandler(){
+    Login loginobj = new Login();
+    int userType = loginobj.Logingin();
     }
 
     public void addTrading() {
