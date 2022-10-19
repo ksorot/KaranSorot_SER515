@@ -24,17 +24,17 @@ public class Facade {
         System.out.println("Invalid Username or Password, Please Try Again");
         userType = loginobj.Logingin();
     }
-        int input = 2 ;
-        while(input != 0 && input != 1){
+        String input = "2" ;
+        while(!input.equals("0") && !input.equals("1") ){
             System.out.println("Select Product from the following options :");
             System.out.println("Enter 0 for Meat Product");
             System.out.println("Enter 1 for Produce Product");
             Scanner systemin = new Scanner(System.in);
-            input = systemin.nextInt();
+            input = systemin.nextLine();
 
-            if (input == 0) {
+            if (input.equals("0")) {
                 nProductCategory = 0;
-            } else if (input == 1) {
+            } else if (input.equals("1") ) {
                 nProductCategory = 1;
             } else {
                 System.out.println(" Invalid Input, please select again from 1 or 0");
