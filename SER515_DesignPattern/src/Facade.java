@@ -21,7 +21,7 @@ public class Facade {
     Login loginobj = new Login();
         int userType = loginobj.Logingin();
     while(userType == -1){
-        System.out.println("Invalid Username or Password, Please Try Again");
+        System.out.println("Invalid Username or Password, Please Try Again \n");
         userType = loginobj.Logingin();
     }
         String input = "2" ;
@@ -40,7 +40,22 @@ public class Facade {
                 System.out.println(" Invalid Input, please select again from 1 or 0");
             }
         }
+
+            Person user;
+            if(userType == 0){
+                user = new Buyer();
+            } else if(userType == 1){
+                user = new Seller();
+            }
+            ProductMenu productMenu;
+            if(nProductCategory == 0){
+                productMenu =  new MeatProductMenu();
+            }
+            else if(userType == 1){
+                productMenu = new ProduceProductMenu();
+            }
         System.out.println("VISITOR PATTERN");
+
     }
 
     public void addTrading() {
