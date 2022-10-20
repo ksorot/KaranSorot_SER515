@@ -1,7 +1,9 @@
 import sun.awt.geom.AreaOp;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.sql.SQLOutput;
-import java.util.Scanner;
+import java.util.*;
 
 public class Facade {
     private int UserType;
@@ -14,18 +16,22 @@ public class Facade {
 
     private Person thePerson;
 
+    public void facadehandler() {
+        System.out.println(" --- IMPLEMENTING FACADE PATTERN ---");
+        ClassProductList productList;
+        ProductIterator productItr;
+        Iterator itr;
 
+        Login loginobj = new Login();
+        ArrayList<String> inp = loginobj.Logingin();
+        int userType = Integer.parseInt(inp.get(0));
 
-
-    public void facadehandler(){
-    Login loginobj = new Login();
-        int userType = loginobj.Logingin();
-    while(userType == -1){
-        System.out.println("Invalid Username or Password, Please Try Again \n");
-        userType = loginobj.Logingin();
-    }
-        String input = "2" ;
-        while(!input.equals("0") && !input.equals("1") ){
+        while (userType == -1) {
+            System.out.println("Invalid Username or Password, Please Try Again \n");
+            userType = Integer.parseInt( loginobj.Logingin().get(0) );
+        }
+        String input = "2";
+        while (!input.equals("0") && !input.equals("1")) {
             System.out.println("Select Product from the following options :");
             System.out.println("Enter 0 for Meat Product");
             System.out.println("Enter 1 for Produce Product");
@@ -34,29 +40,82 @@ public class Facade {
 
             if (input.equals("0")) {
                 nProductCategory = 0;
-            } else if (input.equals("1") ) {
+            } else if (input.equals("1")) {
                 nProductCategory = 1;
             } else {
-                System.out.println(" Invalid Input, please select again from 1 or 0");
+                System.out.println("Invalid Input, please select again from 1 or 0");
             }
         }
 
-            Person user;
-            if(userType == 0){
-                user = new Buyer();
-            } else if(userType == 1){
-                user = new Seller();
+        Person user;
+        System.out.println(" --- Implementing BRIDGE PATTERN --- ");
+        if (userType == 0) {
+            user = new Buyer();
+        } else {
+            user = new Seller();
+        }
+        ProductMenu productMenu;
+        System.out.println(" --- Implementing FACTORY PATTERN --- ");
+        if (nProductCategory == 0) {
+            productMenu = new MeatProductMenu();
+        } else {
+            productMenu = new ProduceProductMenu();
+        }
+        System.out.println(" --- Implementing VISITOR PATTERN --- \n");
+
+        productItr = new ProductIterator();
+        productList = new ClassProductList(productMenu);
+        itr = productList.createIterator();
+
+        System.out.println(" --- Implementing ITERATOR PATTERN --- ");
+
+        if (nProductCategory == 0) {
+            System.out.println("Overall Menu for Meat is");
+        } else {
+            System.out.println("Overall Menu for Produce is");
+        }
+        int counter = 0;
+        while (productItr.hasNext(itr)) {
+            System.out.println("" + ++counter + " " + productItr.Next(itr));
+        }
+
+
+        ArrayList<String> sample = productList.getProductlist();
+
+        HashMap<String, List<String>> userProductList = new HashMap<>();
+        try {
+            File userProductFile = new File("UserProduct.txt");
+            Scanner filereader = new Scanner(userProductFile);
+            while (filereader.hasNextLine()) {
+                String val = filereader.nextLine();
+                String[] temp = val.split(":");
+                if(userProductList.containsKey(temp[0])){
+                    userProductList.get(temp[0]).add(temp[1]);
+                }
+                else {
+                    userProductList.put(temp[0], new ArrayList<>(Arrays.asList(temp[1])));
+                }
             }
-            ProductMenu productMenu;
-            if(nProductCategory == 0){
-                productMenu =  new MeatProductMenu();
+        } catch(FileNotFoundException temp){
+            System.out.println("File Not Found Exception has occured" + temp);
+        }
+        catch(Exception e){
+            System.out.println("Other Exception has occured" + e);
+        }
+
+        String user1 = inp.get(1);
+        System.out.println(" \n Product choice for " + user1 + " from the UserProduct");
+
+        List<String> userspecificlist = userProductList.get(user1);
+        int counter2 = 0;
+        for (String val : sample){
+            if (userspecificlist.contains(val)){
+                System.out.println( " " + ++counter2 + " " + val);
             }
-            else if(userType == 1){
-                productMenu = new ProduceProductMenu();
-            }
-        System.out.println("VISITOR PATTERN");
+        }
 
     }
+
 
     public void addTrading() {
     }

@@ -1,10 +1,7 @@
+import java.util.Iterator;
+
 public interface ListIterator {
+    public boolean hasNext(Iterator itr);
+    public Object Next(Iterator itr);
 
-    public boolean hasNext();
-
-    public Object Next();
-
-    public void MoveToHead();
-
-    public void Remove();
 }

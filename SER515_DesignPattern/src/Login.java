@@ -1,13 +1,16 @@
 import java.io.File;
+import java.sql.Array;
 import java.sql.SQLOutput;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 public class Login {
 
     int userType;
 
-    public int Logingin(){
+    public ArrayList<String> Logingin(){
         userType = -1;
         Scanner cin = new Scanner(System.in);
         System.out.println("Enter Username");
@@ -40,12 +43,15 @@ public class Login {
     }
         if(buyerList.containsKey(username) && buyerList.get(username).equals(password)){
             userType = 0;
-            System.out.println("Welcome Buyer");
+            System.out.println(" \n --- Welcome Buyer --- \n");
         }
         else if(sellerList.containsKey(username) && sellerList.get(username).equals(password)){
             userType = 1;
-            System.out.println("Welcome Seller");
+            System.out.println("\n --- Welcome Seller --- \n");
         }
-       return userType;
+       ArrayList ans =  new ArrayList<String>();
+        ans.add("" + userType);
+        ans.add(username);
+        return ans;
     }
 }

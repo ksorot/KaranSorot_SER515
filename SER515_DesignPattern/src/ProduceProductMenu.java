@@ -26,6 +26,7 @@ public class ProduceProductMenu implements ProductMenu{
         } catch (Exception e) {
             System.out.println("Other Exception has occured" + e);
         }
+
     }
 
     public ArrayList<String> getProductItems() {

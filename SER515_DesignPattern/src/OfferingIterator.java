@@ -1,21 +1,15 @@
+import java.util.Iterator;
+
 public class OfferingIterator extends OfferingList implements ListIterator{
     @Override
-    public boolean hasNext() {
+    public boolean hasNext(Iterator itr) {
         return false;
     }
 
     @Override
-    public Object Next() {
+    public Offering Next(Iterator itr) {
         return null;
     }
 
-    @Override
-    public void MoveToHead() {
 
-    }
-
-    @Override
-    public void Remove() {
-
-    }
 }
