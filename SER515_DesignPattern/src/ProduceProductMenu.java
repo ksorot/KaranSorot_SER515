@@ -9,6 +9,7 @@ public class ProduceProductMenu implements ProductMenu{
 
     public ProduceProductMenu() {
         productItems = new ArrayList<>();
+        //scanning and storing only the meat products from the overall items from the productinfo file
         Scanner filereader;
         try {
             File productFile = new File("ProductInfo.txt");
